@@ -2,25 +2,22 @@
 #Margaux Ulliac
 #Sulayman Charpentier
 #madjoua Djeti
+#Fouad Abdoullah
 #https://github.com/uvsq22000868/projet_incendie
 
+
 import tkinter as tk
+
+#on crée la fenêtre sur laquelle seront les parcelles avec l'incendie
 HEIGHT=400
 WIDTH=600
-largeur_case = WIDTH // 4
-hauteur_case = HEIGHT // 4
-
-for i in range(5):
-    for j in range(5):
-        if (i+j) % 2 == 0:
-            color = "gray80"
-        else:
-            color = "black"
-        canvas.create_rectangle((i*largeur_case, j*hauteur_case),
-                ((i+1)*largeur_case, (j+1)*hauteur_case), fill=color)
-
 root= tk.Tk()
 canvas= tk.Canvas(root, height=HEIGHT, width=WIDTH, bg='white')
 
 canvas.grid(column=0, row=0)
 root.mainloop()
+
+#on insère le quadrillage
+
+
+#On insère le bouton qui va situer aléatoirement les parcelles d'eau, de forêt et de prairie.

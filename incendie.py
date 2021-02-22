@@ -6,278 +6,136 @@
 #https://github.com/uvsq22000868/projet_incendie
 
 
-import tkinter as tk
-
-#on crée la fenêtre sur laquelle seront les parcelles avec l'incendie
-HEIGHT=400
-WIDTH=600
-root= tk.Tk()
-canvas= tk.Canvas(root, height=HEIGHT, width=WIDTH, bg='white')
-
-canvas.grid(column=0, row=0)
-root.mainloop()
-
-#on insère le quadrillage
-
-
-#On insère le bouton qui va situer aléatoirement les parcelles d'eau, de forêt et de prairie.
-
-
-
-#programme "principal" 
-
-
+from random import sample
 from tkinter import *
-window= Tk()
-window.title("Jeux de la vie")
-window.geometry("600x600")
-window.minsize(150,150)
-window.maxsize(800,800)
-window.config(background='white')
-frame=Frame(window,bg="white")
-table=[[0] * 15 for i in range(15)]
-table1=table
-tablevie=[[0] * 15 for i in range(15)]
- 
- 
-file=open("regles py.txt",encoding="utf8")
-contenu=file.read()
-file.close()
- 
- 
-def reglesjeu():
-    window2=Tk()
-    window2.title("Règles du jeu")
-    window2.geometry("600x600")
-    window2.minsize(150,150)
-    window2.maxsize(800,800)
-    window2.config(background='white')
-    label_title2=Label(window2,text="Voici le concept et les règles du jeu de la vie:")
-    label_title2.pack(side=TOP)
-    labelregles=Label(window2,text=contenu,wraplength=500,justify=LEFT)
-    labelregles.pack(pady=10)
- 
- 
-def quadrillage():
-  window1= Tk()
-  window1.title("Jeux de la vie")
-  window1.geometry("600x600")
-  window1.minsize(150,150)
-  window1.maxsize(800,800)
-  window1.config(background='white')
- 
- 
- 
- 
-  frame1=Frame(window1,bg="white")
-  label_title1=Label(frame1, text="choisissez les dimensions du jeu",font=("Ariel",10),bg='white',fg='blue' )
-  label_title1.pack(expand=YES)
-  frame1.pack(side=TOP)
- 
- 
-  def boutoncellule(event,i,j):
-    global table
-    global tablevie
-    table[i][j].config(background="yellow")
-    tablevie[i][j]=1
- 
-  def clickdroit(event,i,j):
-    global table
-    global tablevie
-    table[i][j].config(background="white")
-    tablevie[i][j]=0
- 
-  framjeu=Frame(window1,bg='white')
-  for i in range(15):
-    for j in range(15):
-      d= carré_button=Button(framjeu,bg='white',width=2,height=1)
-      table[i][j]=d
-      d.grid(row=i, column=j)
-      def gest(evt,i=i,j=j):
-          return boutoncellule(evt,i,j)
-      def mort(evt, i=i, j=j):
-        return clickdroit(evt,i,j)
-      d.bind("<Button-1>",gest)
-      d.bind("<Button-3>",mort)
-  framjeu.pack(expand=YES)
- 
- 
- 
-  def jeu():
-     global table1
-     global tablevie
-     for i in range(15):
-       for j in range(15):
-        if 0<i<14 and 0<j<14 and tablevie[i][j]==0 and tablevie[i+1][j]+tablevie[i-1][j]+tablevie[i+1][j+1]+tablevie[i+1][j-1]+tablevie[i][j+1]+tablevie[i-1][j-1]+tablevie[i-1][j+1]+tablevie[i][j-1]==3:
-            tablevie[i][j]=1
-        elif  0<i<14 and 0<j<14 and tablevie[i][j]==1 and tablevie[i+1][j]+tablevie[i-1][j]+tablevie[i+1][j+1]+tablevie[i+1][j-1]+tablevie[i][j+1]+tablevie[i-1][j-1]+tablevie[i-1][j+1]+tablevie[i][j-1]==2:
-            tablevie[i][j]=1
-        elif  0<i<14 and 0<j<14 and tablevie[i][j]==1 and tablevie[i+1][j]+tablevie[i-1][j]+tablevie[i+1][j+1]+tablevie[i+1][j-1]+tablevie[i][j+1]+tablevie[i-1][j-1]+tablevie[i-1][j+1]+tablevie[i][j-1]==3:
-            tablevie[i][j]=1
-        elif  0<i<14 and 0<j<14 and tablevie[i][j]==1 and tablevie[i+1][j]+tablevie[i-1][j]+tablevie[i+1][j+1]+tablevie[i+1][j-1]+tablevie[i][j+1]+tablevie[i-1][j-1]+tablevie[i-1][j+1]+tablevie[i][j-1]==1:
-            tablevie[i][j]=0
-        elif  0<i<14 and 0<j<14 and tablevie[i][j]==1 and tablevie[i+1][j]+tablevie[i-1][j]+tablevie[i+1][j+1]+tablevie[i+1][j-1]+tablevie[i][j+1]+tablevie[i-1][j-1]+tablevie[i-1][j+1]+tablevie[i][j-1]>3:
-            tablevie[i][j]=0
- 
- 
- 
-        if 0<j<14 and tablevie[0][j]==0 and tablevie[1][j]+tablevie[1][j+1]+tablevie[1][j-1]+tablevie[0][j+1]+tablevie[0][j-1]==3:
-            tablevie[0][j]=1
-        elif  0<j<14 and tablevie[0][j]==1 and tablevie[1][j]+tablevie[1][j+1]+tablevie[1][j-1]+tablevie[0][j+1]+tablevie[0][j-1]==2:
-            tablevie[0][j]=1
-        elif 0<j<14 and tablevie[0][j]==1 and tablevie[1][j]+tablevie[1][j+1]+tablevie[1][j-1]+tablevie[0][j+1]+tablevie[0][j-1]==3:
-           tablevie[0][j]=1
-        elif 0<j<14 and tablevie[0][j]==1 and tablevie[1][j]+tablevie[1][j+1]+tablevie[1][j-1]+tablevie[0][j+1]+tablevie[0][j-1]==1:
-            tablevie[0][j]=0
-        elif 0<j<14 and tablevie[0][j]==1 and tablevie[1][j]+tablevie[1][j+1]+tablevie[1][j-1]+tablevie[0][j+1]+tablevie[0][j-1]>3:
-            tablevie[0][j]=0
- 
-        if 0<i<14 and tablevie[i][0]==0 and tablevie[i+1][0]+tablevie[i-1][0]+tablevie[i+1][1]+tablevie[i][1]+tablevie[i-1][1]==3:
-            tablevie[i][0]=1
-        elif 0<i<14 and tablevie[i][0]==1 and tablevie[i+1][0]+tablevie[i-1][0]+tablevie[i+1][1]+tablevie[i][1]+tablevie[i-1][1]==2:
-            tablevie[i][0]=1
-        elif 0<i<14 and tablevie[i][0]==1 and tablevie[i+1][0]+tablevie[i-1][0]+tablevie[i+1][1]+tablevie[i][1]+tablevie[i-1][1]==3:
-            tablevie[i][0]=1
-        elif 0<i<14 and tablevie[i][0]==1 and tablevie[i+1][0]+tablevie[i-1][0]+tablevie[i+1][1]+tablevie[i][1]+tablevie[i-1][1]==1:
-           tablevie[i][0]=0
-        elif 0<i<14 and  tablevie[i][0]==1 and tablevie[i+1][0]+tablevie[i-1][0]+tablevie[i+1][1]+tablevie[i][1]+tablevie[i-1][1]>3:
-            tablevie[i][0]=0
- 
- 
- 
-        if 0<j<14 and tablevie[14][j]==0 and tablevie[13][j]+tablevie[14][j+1]+tablevie[14][j-1]+tablevie[13][j+1]+tablevie[13][j-1]==3:
-            tablevie[14][j]=1
-        elif 0<j<14 and tablevie[14][j]==1 and tablevie[13][j]+tablevie[14][j+1]+tablevie[14][j-1]+tablevie[13][j+1]+tablevie[13][j-1]==2:
-            tablevie[14][j]=1
-        elif 0<j<14 and tablevie[14][j]==1 and tablevie[13][j]+tablevie[14][j+1]+tablevie[14][j-1]+tablevie[13][j+1]+tablevie[13][j-1]==3:
-             tablevie[14][j]=1
-        elif 0<j<14 and tablevie[14][j]==1 and tablevie[13][j]+tablevie[14][j+1]+tablevie[14][j-1]+tablevie[13][j+1]+tablevie[13][j-1]==1:
-            tablevie[14][j]=0
-        elif 0<j<14 and tablevie[14][j]==1 and tablevie[13][j]+tablevie[14][j+1]+tablevie[14][j-1]+tablevie[13][j+1]+tablevie[13][j-1]>3:
-            tablevie[14][j]=0
- 
- 
-        if 0<i<14 and tablevie[i][14]==0 and tablevie[i+1][13]+tablevie[i-1][13]+tablevie[i+1][14]+tablevie[i][13]+tablevie[i-1][14]==3:
-            tablevie[i][14]=1
-        elif 0<i<14 and tablevie[i][14]==1 and tablevie[i+1][13]+tablevie[i-1][13]+tablevie[i+1][14]+tablevie[i][13]+tablevie[i-1][14]==2:
-            tablevie[i][14]=1
-        elif 0<i<14 and tablevie[i][14]==1 and tablevie[i+1][13]+tablevie[i-1][13]+tablevie[i+1][14]+tablevie[i][13]+tablevie[i-1][14]==3:
-            tablevie[i][14]=1
-        elif 0<i<14 and tablevie[i][14]==1 and tablevie[i+1][13]+tablevie[i-1][13]+tablevie[i+1][14]+tablevie[i][13]+tablevie[i-1][14]==1:
-            tablevie[i][14]=0
-        elif 0<i<14 and tablevie[i][14]==1 and tablevie[i+1][13]+tablevie[i-1][13]+tablevie[i+1][14]+tablevie[i][13]+tablevie[i-1][14]>3:
-            tablevie[i][14]=0
- 
- 
- 
-        if tablevie[0][0]==0 and tablevie[1][0]+tablevie[0][1]+tablevie[1][1]==3:
-            tablevie[0][0]=1
-        elif tablevie[0][0]==1 and tablevie[1][0]+tablevie[0][1]+tablevie[1][1]==2:
-            tablevie[0][0]=1
-        elif tablevie[0][0]==1 and tablevie[1][0]+tablevie[0][1]+tablevie[1][1]==3:
-            tablevie[0][0]=1
-        elif tablevie[0][0]==1 and tablevie[1][0]+tablevie[0][1]+tablevie[1][1]==1:
-            tablevie[0][0]=0
-        elif tablevie[0][0]==1 and tablevie[1][0]+tablevie[0][1]+tablevie[1][1]>3:
-            tablevie[0][0]=0
- 
- 
-        if tablevie[14][0]==0 and tablevie[14][1]+tablevie[13][0]+tablevie[13][1]==3:
-            tablevie[14][0]=1
-        elif tablevie[14][0]==1 and tablevie[14][1]+tablevie[13][0]+tablevie[13][1]==2:
-            tablevie[14][0]=1
-        elif tablevie[14][0]==1 and tablevie[14][1]+tablevie[13][0]+tablevie[13][1]==3:
-            tablevie[14][0]=1
-        elif tablevie[14][0]==1 and tablevie[14][1]+tablevie[13][0]+tablevie[13][1]==1:
-            tablevie[14][0]=0
-        elif tablevie[14][0]==1 and tablevie[14][1]+tablevie[13][0]+tablevie[13][1]>3:
-            tablevie[14][0]=0
- 
- 
-        if tablevie[0][14]==0 and tablevie[1][14]+tablevie[0][13]+tablevie[1][13]==3:
-            tablevie[0][14]=1
-        elif tablevie[0][14]==1 and tablevie[1][14]+tablevie[0][13]+tablevie[1][13]==2:
-            tablevie[0][14]=1
-        elif tablevie[0][14]==1 and tablevie[1][14]+tablevie[0][13]+tablevie[1][13]==3:
-            tablevie[0][14]=1
-        elif tablevie[0][14]==1 and tablevie[1][14]+tablevie[0][13]+tablevie[1][13]==1:
-            tablevie[0][14]=0
-        elif tablevie[0][14]==1 and tablevie[1][14]+tablevie[0][13]+tablevie[1][13]>3:
-            tablevie[0][14]=0
- 
- 
-        if tablevie[14][14]==0 and tablevie[14][13]+tablevie[13][14]+tablevie[13][13]==3:
-            tablevie[14][14]=1
-        elif tablevie[14][14]==1 and tablevie[14][13]+tablevie[13][14]+tablevie[13][13]==2:
-            tablevie[14][14]=1
-        elif tablevie[14][14]==1 and tablevie[14][13]+tablevie[13][14]+tablevie[13][13]==3:
-            tablevie[14][14]=1
-        elif tablevie[14][14]==1 and tablevie[14][13]+tablevie[13][14]+tablevie[13][13]==1:
-            tablevie[14][14]=0
-        elif tablevie[14][14]==1 and tablevie[14][13]+tablevie[13][14]+tablevie[13][13]>3:
-            tablevie[14][14]=0
- 
- 
-     for i in range(15):
-       for j in range(15):
-           if tablevie[i][j]==1:
-            d=table[i][j]
-            d.config(bg="yellow")
-           else:
-            d=table[i][j]
-            d.config(bg="white")
-       #while (d).cget('white')  and (tamble[i+1][j])['yellow'] and (table[i-1][j])['yellow'] and (table[i+1][j+1])['yellow'] and (table[i+1][j-1])['yellow']:
-       # d.config(bg="yellow")
- 
-  def jeuauto():
-    while 1:
-        jeu()
- 
- 
- 
- 
- 
- 
- 
- 
-  def arret():
-    jouer_button4.config(state=DISABLED)
-  def reset():
-    window1.destroy()
-    quadrillage()
- 
- 
- 
-  jouer_button4=Button(window1,text='Jouer',font=("Ariel",10),bg='white',fg='blue',command=jeuauto)
-  jouer_button4.pack(side=BOTTOM,pady=10)
-  jouer_button5=Button(window1,text='Stop',font=("Ariel",10),bg='white',fg='blue',command=arret)
-  jouer_button5.pack(side=BOTTOM)
-  jouer_button6=Button(window1,text='Recommencer',font=("Ariel",10),bg='white',fg='blue',command=reset)
-  jouer_button6.pack(side=BOTTOM,pady=10)
- 
- 
- 
- 
- 
- 
- 
- 
-label_title=Label(frame, text="Bienvenu sur le jeu de la vie",font=("Ariel",16),bg='white',fg='blue')
-label_title.pack()
- 
- 
- 
-jouer_button=Button(frame,text='Jouer',font=("Ariel",10),bg='white',fg='blue',command=quadrillage)
-jouer_button.pack(pady=10)
- 
-jouer_button1=Button(frame,text='Règles du jeu',font=("Ariel",10),bg='white',fg='blue',command=reglesjeu)
-jouer_button1.pack(pady=10)
- 
- 
- 
- 
- 
- 
-frame.pack(expand=YES)
- 
-window.mainloop()
+
+COLORS=["cyan", "green2", "orange red", "gray42", "yellow2", "black"]
+
+
+def generateur_case(p, n): # Fonction qui genere des carré vert et bleu aleatoirement
+    units=[(line,col) for col in range(n) for line in range(n)]
+    ntrees=int(n**2*p)
+    trees=sample(units,ntrees)
+    states=[[0]*n for _ in range(n)]
+    for (i,j) in trees:
+        states[i][j]=1
+    return states
+
+
+def fill(states): # fonction qui change la couleur des carré
+    n=len(states)
+    for line in range(n):
+        for col in range(n):
+            fill_cell(states, line, col)
+
+def propagate(): # fonction qui propage le feu
+    update_states(states)
+    canvas.delete("all")
+    fill(states)
+    canvas.after(150, propagate)
+
+
+def fill_cell(states, line, col): # fonction qui change la couleur des carré
+        A=(unit*col, unit*line)
+        B=(unit*(col+1), unit*(line+1))
+        state=states[line][col]
+        color=COLORS[state]
+        canvas.create_rectangle(A, B, fill=color, outline='black')
+
+
+def update_states(states): # fonction qui change l'etat des cellules ( mort ou vivante)
+    n=len(states)
+    to_fire=[]
+    for line in range(n):
+        for col in range(n):
+            if states[line][col]==2:
+                states[line][col]=3
+                for (i, j) in voisins(n, line, col):
+                    if states[i][j]==1:
+                        to_fire.append((i, j))
+    for (line,col) in to_fire:
+        states[line][col]=2
+
+
+def voisins(n, i, j): # fonction qui verifie si les carré autour son vivant ou non
+    return [(a,b) for (a, b) in
+            [(i, j+1),(i, j-1), (i-1, j), (i+1,j)]
+            if a in range(n) and b in range(n)]
+
+
+
+def bouton_lancer(): # bouton qui sert a lancer la simulation (pas encore fini)
+    print("Lancer...")
+    propagate()
+
+
+def carre(): #fonction pour faire le quadrillage
+    ligne_vert() # fonction pour faire les lignes verticales
+    ligne_hor() # fonction pour faire les lignes horizontales
+        
+def ligne_vert():
+    c_x = 0
+    while c_x != largeur:
+        canvas.create_line(c_x,0,c_x,longeur,width=1,fill='black')
+        c_x+=c
+        
+def ligne_hor():
+    c_y = 0
+    while c_y != longeur:
+        canvas.create_line(0,c_y,largeur,c_y,width=1,fill='black')
+        c_y+=c
+
+
+def click_gauche(event): # fonction qui change la case en rouge
+    print("L'utilisateur a clické")
+    x = event.x -(event.x%c)
+    y = event.y -(event.y%c)
+    canvas.create_rectangle(x, y, x+c, y+c, fill='red')
+    etat_cellule[x,y]=1 # rend la cellule morte 1 = morte 0 = vivante
+
+
+
+
+
+# Variables
+largeur = 400
+longeur = 400
+etat_cellule = {} # liste qui contient l'etat de toutes les cellules
+c = 10 # taille des carré
+p=0.62
+n=50
+unit=10
+
+#Creation de la fenetre
+fenetre = Tk()
+fenetre.title("Projet Incendie")
+
+#Creation des parcelles
+
+canvas = Canvas(fenetre, width=largeur, height=longeur)
+bouton = Button(fenetre,text="Lancer",bg="white",command=bouton_lancer)
+bouton.pack(side=TOP)
+        
+
+
+
+canvas.bind("<Button-1>", click_gauche)
+canvas.pack()
+carre()
+
+
+# foret aleatoire
+states=generateur_case(p, n)
+
+
+i=n//2
+j=0
+states[i][j]=2
+
+
+#
+
+fill(states)
+
+
+fenetre.mainloop() 
